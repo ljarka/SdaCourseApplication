@@ -1,5 +1,11 @@
 package com.github.ljarka.sdacourseapplication.drawing;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +16,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.github.ljarka.sdacourseapplication.R;
+import com.github.ljarka.sdacourseapplication.gallery.GalleryActivity;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DrawingActivity extends AppCompatActivity {
 
+    public static final String DRAWING_GALLERY_DIR = "drawing_gallery2";
     private SimpleDrawingView simpleDrawingView;
 
     @Override
@@ -52,7 +67,43 @@ public class DrawingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.clear) {
             simpleDrawingView.clear();
+        } else if (item.getItemId() == R.id.save) {
+            saveDrawingToFile();
+        }else if(item.getItemId() == R.id.drawing_gallery){
+            Intent intent = new Intent(this, GalleryActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveDrawingToFile() {
+        File drawingFile = new File(getDrawingGalleryDirectory(),
+                createFileName());
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(drawingFile);
+            Bitmap bitmap = convertViewToBitmap(simpleDrawingView);
+            bitmap.compress(CompressFormat.PNG, 100, fileOutputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String createFileName(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        return "my_drawing" + timeStamp + ".png" ;
+    }
+
+    private File getDrawingGalleryDirectory() {
+        return getExternalFilesDir(DRAWING_GALLERY_DIR);
+    }
+
+    private Bitmap convertViewToBitmap(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        return bitmap;
     }
 }
