@@ -20,6 +20,8 @@
             android:label="Drawing Activity" />
         <activity android:name=".gallery.GalleryActivity"
             android:label="Gallery Activity" />
+        <activity android:name=".todolist.TodoListActivity"
+            android:label="TODO List" />
     </application>
 
 </manifest>
