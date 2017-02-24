@@ -22,6 +22,10 @@
             android:label="Gallery Activity" />
         <activity android:name=".todolist.TodoListActivity"
             android:label="TODO List" />
+        <activity android:name=".reflex.ReflexActivity"
+            android:label="Reflex"
+            android:theme="@style/ReflexActivity"
+        />
     </application>
 
 </manifest>

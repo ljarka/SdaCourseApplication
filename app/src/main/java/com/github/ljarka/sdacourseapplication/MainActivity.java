@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.ljarka.sdacourseapplication.drawing.DrawingActivity;
+import com.github.ljarka.sdacourseapplication.reflex.ReflexActivity;
 import com.github.ljarka.sdacourseapplication.todolist.TodoListActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView reflexApplication = (TextView) findViewById(R.id.reflex_appliacation);
+        reflexApplication.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ReflexActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
