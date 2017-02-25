@@ -3,6 +3,8 @@ package com.github.ljarka.sdacourseapplication.todolist;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
+import android.support.v7.view.ActionMode.Callback;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,14 +19,50 @@ public class TodoListActivity extends AppCompatActivity implements OnItemCheckSt
 
     private TodoListAdapter todoListAdapter;
     private String acitivityTitle;
+    private ActionMode actionMode;
 
     @Override
     public void onItemCheckStateChanged(int checkedItemsCount) {
         if (checkedItemsCount > 0) {
-            getSupportActionBar().setTitle("Checked items " + checkedItemsCount);
+            createActionMode();
+            actionMode.setTitle("Checked items " + checkedItemsCount);
+
         } else {
+            if (actionMode != null) {
+                actionMode.finish();
+            }
             getSupportActionBar().setTitle(acitivityTitle);
         }
+    }
+
+    private void createActionMode() {
+        actionMode = startSupportActionMode(new Callback() {
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.getMenuInflater().inflate(R.menu.todo_list_action_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                if (item.getItemId() == R.id.action_delete) {
+                    todoListAdapter.deleteAllCheckedItems();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                actionMode = null;
+            }
+        });
     }
 
     @Override
@@ -53,13 +91,5 @@ public class TodoListActivity extends AppCompatActivity implements OnItemCheckSt
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.todo_list_menu, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.delete_item) {
-            todoListAdapter.deleteAllCheckedItems();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
