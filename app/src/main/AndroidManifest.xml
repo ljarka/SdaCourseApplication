@@ -3,6 +3,7 @@
     package="com.github.ljarka.sdacourseapplication">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,12 +17,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".drawing.DrawingActivity"
+        <activity
+            android:name=".drawing.DrawingActivity"
             android:label="Drawing Activity" />
-        <activity android:name=".gallery.GalleryActivity"
+        <activity
+            android:name=".gallery.GalleryActivity"
             android:label="Gallery Activity" />
-        <activity android:name=".todolist.TodoListActivity"
+        <activity
+            android:name=".todolist.TodoListActivity"
             android:label="TODO List" />
+        <activity android:name=".quiz.QuizActivity">
+        </activity>
     </application>
 
 </manifest>

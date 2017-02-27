@@ -3,10 +3,11 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="clear">Clear</string>
-    <string name="checked_items">%d items</string>
+    <string name="checked_items">%d elementów</string>
 
     <plurals name="checked_items_plural">
-        <item quantity="one">%d item</item>
-        <item quantity="other">%d items</item>
+        <item quantity="one">%d element</item>
+        <item quantity="few">%d elementy</item>
+        <item quantity="many">%d elementów</item>
     </plurals>
 </resources>

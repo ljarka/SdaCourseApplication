@@ -35,6 +35,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.MyView
 
         final TodoListItem listItem = items.get(position);
         holder.textView.setText(listItem.getText());
+        holder.checkBox.setOnCheckedChangeListener(null);
         holder.checkBox.setChecked(listItem.isChecked());
         holder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -83,6 +84,13 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.MyView
 
     }
 
+    public void deselectAllItems() {
+        for (TodoListItem item : items) {
+            item.setChecked(false);
+        }
+        notifyDataSetChanged();
+    }
+
     public void deleteAllCheckedItems() {
         List<TodoListItem> newListItems = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
@@ -95,5 +103,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.MyView
         if (checkListener != null) {
             checkListener.onItemCheckStateChanged(getCheckedItemsCount());
         }
+    }
+
+    public List<TodoListItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<TodoListItem> items) {
+        this.items = items;
+        notifyDataSetChanged();
     }
 }

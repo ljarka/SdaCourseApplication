@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.ljarka.sdacourseapplication.drawing.DrawingActivity;
+import com.github.ljarka.sdacourseapplication.quiz.QuizActivity;
 import com.github.ljarka.sdacourseapplication.todolist.TodoListActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodoListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView quizApplication = (TextView) findViewById(R.id.quiz_appliacation);
+        quizApplication.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
                 startActivity(intent);
             }
         });

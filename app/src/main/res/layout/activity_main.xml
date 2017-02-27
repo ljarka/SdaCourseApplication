@@ -53,6 +53,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/quiz_appliacation"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            android:text="Quiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
