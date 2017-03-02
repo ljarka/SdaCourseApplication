@@ -1,9 +1,9 @@
 {
-  "questionsCount": 1,
+  "questionsCount": 2,
   "questions": [
     {
       "id": 1,
-      "text": "Głównym komponentem aplikacji androidowej nie jest",
+      "question": "Głównym komponentem aplikacji androidowej nie jest",
       "answers": [
         {
           "isCorrect": true,
@@ -20,6 +20,28 @@
         {
           "isCorrect": false,
           "text": "Service"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Więcej niż jedno zwierze",
+      "answers": [
+        {
+          "isCorrect": true,
+          "text": "Stado"
+        },
+        {
+          "isCorrect": false,
+          "text": "Lama"
+        },
+        {
+          "isCorrect": false,
+          "text": "Owca"
+        },
+        {
+          "isCorrect": false,
+          "text": "Kanapka"
         }
       ]
     }

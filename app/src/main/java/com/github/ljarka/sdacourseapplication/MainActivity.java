@@ -59,19 +59,26 @@ public class MainActivity extends AppCompatActivity {
                 saveText(notesEditText.getText().toString());
             }
         });
+
+        TextView quizApp = (TextView) findViewById(R.id.quiz_appliacation);
+        quizApp.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private String readText(){
+    private String readText() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         return sharedPreferences.getString(NOTES_KEY, "");
     }
 
     private void saveText(String text) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPreferences
-                .edit()
-                .putString(NOTES_KEY, text)
-                .apply();
+        sharedPreferences.edit().putString(NOTES_KEY, text).apply();
 
         TextView todoApplication = (TextView) findViewById(R.id.todo_list_appliacation);
         todoApplication.setOnClickListener(new OnClickListener() {
