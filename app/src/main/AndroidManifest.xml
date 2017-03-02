@@ -29,6 +29,8 @@
             android:label="TODO List" />
         <activity android:name=".quiz.QuizActivity">
         </activity>
+        <activity android:name=".books.BooksActivity">
+        </activity>
     </application>
 
 </manifest>
