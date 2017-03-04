@@ -1,5 +1,7 @@
 package com.github.ljarka.sdacourseapplication.books;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,13 +23,18 @@ public class BooksActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-        Book effectiveJava = new Book(1, R.drawable.effective_java, "Effective Java");
-        Book cleanCode = new Book(2, R.drawable.clean_code, "Clean Code");
-        Book headFirstDesing = new Book(3, R.drawable.head_first_design_patterns,
-                "Head First Design Patterns");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        List<Book> list = Arrays.asList(effectiveJava, cleanCode, headFirstDesing);
-        BooksPagerAdapter adapter = new BooksPagerAdapter(list);
+        Book effectiveJava = new Book(1, R.drawable.effective_java, "Effective Java");
+        effectiveJava.setRead(sharedPreferences.getBoolean(String.valueOf(effectiveJava.getId()), false));
+        Book cleanCode = new Book(2, R.drawable.clean_code, "Clean Code");
+        cleanCode.setRead(sharedPreferences.getBoolean(String.valueOf(cleanCode.getId()), false));
+        Book headFirstDesign = new Book(3, R.drawable.head_first_design_patterns,
+                "Head First Design Patterns");
+        headFirstDesign.setRead(sharedPreferences.getBoolean(String.valueOf(headFirstDesign.getId()), false));
+
+        List<Book> list = Arrays.asList(effectiveJava, cleanCode, headFirstDesign);
+        BooksPagerAdapter adapter = new BooksPagerAdapter(list, sharedPreferences);
         viewPager.setAdapter(adapter);
     }
 }
