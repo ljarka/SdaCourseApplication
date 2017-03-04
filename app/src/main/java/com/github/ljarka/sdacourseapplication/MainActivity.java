@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ljarka.sdacourseapplication.books.BooksActivity;
 import com.github.ljarka.sdacourseapplication.drawing.DrawingActivity;
 import com.github.ljarka.sdacourseapplication.quiz.QuizActivity;
 import com.github.ljarka.sdacourseapplication.todolist.TodoListActivity;
@@ -66,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView books = (TextView) findViewById(R.id.books);
+        books.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BooksActivity.class);
                 startActivity(intent);
             }
         });
