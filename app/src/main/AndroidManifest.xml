@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".books.BooksActivity">
         </activity>
+        <activity android:name=".fortune.FortuneActivity">
+        </activity>
     </application>
 
 </manifest>

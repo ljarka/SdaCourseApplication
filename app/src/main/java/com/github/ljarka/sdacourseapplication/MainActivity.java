@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.github.ljarka.sdacourseapplication.books.BooksActivity;
 import com.github.ljarka.sdacourseapplication.drawing.DrawingActivity;
+import com.github.ljarka.sdacourseapplication.fortune.FortuneActivity;
 import com.github.ljarka.sdacourseapplication.quiz.QuizActivity;
 import com.github.ljarka.sdacourseapplication.todolist.TodoListActivity;
 
@@ -77,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BooksActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView fortune = (TextView) findViewById(R.id.fortune);
+        fortune.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FortuneActivity.class);
                 startActivity(intent);
             }
         });
