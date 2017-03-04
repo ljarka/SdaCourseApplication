@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".fortune.FortuneActivity">
         </activity>
+        <activity android:name=".quiz.QuizSummaryActivity">
+        </activity>
     </application>
 
 </manifest>

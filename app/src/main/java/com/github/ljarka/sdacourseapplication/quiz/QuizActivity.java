@@ -31,10 +31,16 @@ import java.io.InputStreamReader;
 public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
     private static final String INDEX_KEY = "index_key";
+    public static final String CORRECT_ANSWERS = "correct_answers";
+    public static final String INCORRECT_ANSWERS = "incorrect_answers";
 
     private int currentQuestionIndex;
     private boolean wasViewClicked;
     private QuizContainer quizContainer;
+    private ValueAnimator objectAnimator;
+    private boolean isAnimatorCancelled;
+    private int correctAnswers;
+    private int incorrectAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,11 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.quiz_app);
 
         currentQuestionIndex = getIntent().getIntExtra(INDEX_KEY, 0);
+        correctAnswers = getIntent().getIntExtra(CORRECT_ANSWERS, 0);
+        incorrectAnswers = getIntent().getIntExtra(INCORRECT_ANSWERS, 0);
 
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        ValueAnimator objectAnimator = ObjectAnimator.ofInt(0, 100);
+        objectAnimator = ObjectAnimator.ofInt(0, 100);
         objectAnimator.setDuration(10000);
         objectAnimator.addUpdateListener(new AnimatorUpdateListener() {
 
@@ -58,7 +66,11 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-
+                if (!isAnimatorCancelled) {
+                    Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
+                    intent.putExtra(INDEX_KEY, ++currentQuestionIndex);
+                    startActivity(intent);
+                }
             }
         });
         progressBar.setProgress(0);
@@ -107,8 +119,10 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         if (!wasViewClicked) {
             if ((Boolean) view.getTag()) {
+                ++correctAnswers;
                 Toast.makeText(view.getContext(), "Odpowiedź poprawna", Toast.LENGTH_LONG).show();
             } else {
+                ++incorrectAnswers;
                 Toast.makeText(view.getContext(), "Zła odpowiedź", Toast.LENGTH_LONG).show();
             }
 
@@ -119,10 +133,17 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
                     if (currentQuestionIndex < quizContainer.getQuestionsCount() - 1) {
                         Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
                         intent.putExtra(INDEX_KEY, ++currentQuestionIndex);
+                        intent.putExtra(CORRECT_ANSWERS, correctAnswers);
+                        intent.putExtra(INCORRECT_ANSWERS, incorrectAnswers);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(QuizActivity.this, "Quiz ends", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(QuizActivity.this, QuizSummaryActivity.class);
+                        intent.putExtra(CORRECT_ANSWERS, correctAnswers);
+                        intent.putExtra(INCORRECT_ANSWERS, incorrectAnswers);
+                        startActivity(intent);
                     }
+                    isAnimatorCancelled = true;
+                    objectAnimator.cancel();
 
                 }
             }, 3000);
