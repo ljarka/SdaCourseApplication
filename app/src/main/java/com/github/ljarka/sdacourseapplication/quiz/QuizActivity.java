@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ljarka.sdacourseapplication.MainActivity;
 import com.github.ljarka.sdacourseapplication.R;
 import com.google.gson.Gson;
 
@@ -35,6 +36,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
     private int currentQuestionIndex;
     private boolean wasViewClicked;
     private QuizContainer quizContainer;
+    private ValueAnimator objectAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
         currentQuestionIndex = getIntent().getIntExtra(INDEX_KEY, 0);
 
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        ValueAnimator objectAnimator = ObjectAnimator.ofInt(0, 100);
+        objectAnimator = ObjectAnimator.ofInt(0, 100);
         objectAnimator.setDuration(10000);
         objectAnimator.addUpdateListener(new AnimatorUpdateListener() {
 
@@ -126,8 +128,21 @@ public class QuizActivity extends AppCompatActivity implements OnClickListener {
 
                 }
             }, 3000);
+
             wasViewClicked = true;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        objectAnimator.removeAllUpdateListeners();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private String loadQuizJson() throws IOException {
